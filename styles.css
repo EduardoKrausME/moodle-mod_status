@@ -1,0 +1,123 @@
+.mod-status-student {
+    max-width: 760px;
+}
+
+.mod-status-current {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.mod-status-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .75rem;
+}
+
+.mod-status-button {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .65rem;
+    text-align: left;
+    border-radius: .75rem;
+    font-size: 1rem;
+}
+
+.mod-status-dot {
+    width: .7rem;
+    height: .7rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .72;
+    flex: 0 0 auto;
+}
+
+.mod-status-feedback {
+    min-height: 1.5rem;
+    margin-top: .75rem;
+    color: var(--bs-success, #198754);
+}
+
+.mod-status-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mod-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.mod-status-card {
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .85rem;
+    background: var(--bs-body-bg, #fff);
+    overflow: hidden;
+}
+
+.mod-status-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .85rem 1rem;
+    border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+    background: rgba(0, 0, 0, .025);
+}
+
+.mod-status-card-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.mod-status-user-list {
+    padding: .55rem;
+}
+
+.mod-status-user {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .5rem;
+    border-radius: .55rem;
+}
+
+.mod-status-user + .mod-status-user {
+    border-top: 1px solid rgba(0, 0, 0, .05);
+}
+
+.mod-status-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--bs-secondary-bg, #e9ecef);
+    font-size: .72rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+}
+
+.mod-status-empty {
+    padding: .75rem;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: .9rem;
+}
+
+.mod-status-card-notset {
+    opacity: .82;
+}
+
+@media (max-width: 576px) {
+    .mod-status-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

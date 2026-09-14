@@ -1,0 +1,44 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_status/student
+
+    Example context (json):
+    {
+        Aqui tem que criar o context em inglês
+    }
+}}
+<div class="mod-status-student" data-region="status-student">
+    <div class="mod-status-current" data-region="current-status">
+        {{#hascurrent}}
+            <span class="mod-status-current-label">{{#str}}yourcurrentstatus, mod_status{{/str}} <strong data-region="current-label">{{currentlabel}}</strong></span>
+        {{/hascurrent}}
+        {{^hascurrent}}
+            <span class="mod-status-current-label text-muted">{{#str}}nostatusyet, mod_status{{/str}}</span>
+        {{/hascurrent}}
+    </div>
+    <div class="mod-status-buttons" role="group" aria-label="{{#str}}selectstatus, mod_status{{/str}}">
+        {{#states}}
+            <button type="button" class="btn mod-status-button {{#active}}btn-primary active{{/active}}{{^active}}btn-outline-secondary{{/active}}"
+                    data-action="set-status" data-statekey="{{key}}" aria-pressed="{{#active}}true{{/active}}{{^active}}false{{/active}}">
+                <span class="mod-status-dot" aria-hidden="true"></span>
+                <span>{{label}}</span>
+            </button>
+        {{/states}}
+    </div>
+    <div class="mod-status-feedback" data-region="feedback" aria-live="polite"></div>
+</div>
