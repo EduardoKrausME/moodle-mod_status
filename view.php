@@ -22,6 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_status\event\course_module_viewed;
+use mod_status\status_manager;
+
 require_once(__DIR__ . "/../../config.php");
 
 $id = required_param("id", PARAM_INT);
@@ -38,12 +41,12 @@ $PAGE->set_title(format_string($status->name));
 $PAGE->set_heading($course->fullname);
 $PAGE->set_activity_record($status);
 
-\mod_status\event\course_module_viewed::create([
+course_module_viewed::create([
     "objectid" => $status->id,
     "context" => $context,
 ])->trigger();
 
-$manager = new \mod_status\status_manager($status, $cm, $context);
+$manager = new status_manager($status, $cm, $context);
 $PAGE->requires->strings_for_js(["yourcurrentstatus", "statussaved"], "mod_status");
 
 if (has_capability("mod/status:viewdashboard", $context)) {

@@ -24,10 +24,13 @@
 
 namespace mod_status\external;
 
+use context_module;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_single_structure;
 use core_external\external_value;
+use mod_status\event\status_changed;
+use mod_status\status_manager;
 
 /**
  * Class set_status.
@@ -58,17 +61,17 @@ class set_status extends external_api {
         $params = self::validate_parameters(self::execute_parameters(), ["cmid" => $cmid, "statekey" => $statekey]);
         $cm = get_coursemodule_from_id("status", $params["cmid"], 0, false, MUST_EXIST);
         $course = get_course($cm->course);
-        $context = \context_module::instance($cm->id);
+        $context = context_module::instance($cm->id);
         self::validate_context($context);
         require_login($course, false, $cm);
         require_capability("mod/status:setstatus", $context);
 
         $activity = $DB->get_record("status", ["id" => $cm->instance], "*", MUST_EXIST);
-        $manager = new \mod_status\status_manager($activity, $cm, $context);
+        $manager = new status_manager($activity, $cm, $context);
         $record = $manager->set_user_status($USER->id, $params["statekey"]);
         $state = $manager->find_state($params["statekey"]);
 
-        \mod_status\event\status_changed::create([
+        status_changed::create([
             "objectid" => $record->id,
             "context" => $context,
             "other" => ["statekey" => $params["statekey"]],

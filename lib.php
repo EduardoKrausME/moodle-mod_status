@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_status\instance_manager;
+
 /**
  * Returns the features supported by this activity.
  *
@@ -48,7 +50,7 @@ function status_supports(string $feature) {
  * @return int
  */
 function status_add_instance(stdClass $data, ?mod_status_mod_form $mform = null): int {
-    return \mod_status\instance_manager::add($data);
+    return instance_manager::add($data);
 }
 
 /**
@@ -59,7 +61,7 @@ function status_add_instance(stdClass $data, ?mod_status_mod_form $mform = null)
  * @return bool
  */
 function status_update_instance(stdClass $data, ?mod_status_mod_form $mform = null): bool {
-    return \mod_status\instance_manager::update($data);
+    return instance_manager::update($data);
 }
 
 /**
@@ -69,7 +71,7 @@ function status_update_instance(stdClass $data, ?mod_status_mod_form $mform = nu
  * @return bool
  */
 function status_delete_instance(int $id): bool {
-    return \mod_status\instance_manager::delete($id);
+    return instance_manager::delete($id);
 }
 
 

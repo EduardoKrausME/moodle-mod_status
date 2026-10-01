@@ -24,8 +24,10 @@
 
 namespace mod_status;
 
+use completion_info;
 use context_module;
 use core_text;
+use moodle_exception;
 use stdClass;
 
 /**
@@ -159,7 +161,7 @@ class status_manager {
 
         $state = $this->find_state($statekey);
         if ($state === null) {
-            throw new \moodle_exception("invalidstate", "mod_status");
+            throw new moodle_exception("invalidstate", "mod_status");
         }
 
         $now = time();
@@ -180,7 +182,7 @@ class status_manager {
         }
 
         $course = get_course($this->cm->course);
-        $completion = new \completion_info($course);
+        $completion = new completion_info($course);
         if ($completion->is_enabled($this->cm)) {
             $completion->update_state($this->cm, COMPLETION_UNKNOWN, $userid);
         }

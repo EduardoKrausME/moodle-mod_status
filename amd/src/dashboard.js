@@ -21,9 +21,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(["jquery", "core/ajax", "core/notification"], function($, Ajax, Notification) {
+define(["jquery", "core/ajax", "core/notification"], function ($, Ajax, Notification) {
     var loading = false;
-    var refresh = function(cmid) {
+    var refresh = function (cmid) {
         if (loading || document.hidden) {
             return;
         }
@@ -31,18 +31,18 @@ define(["jquery", "core/ajax", "core/notification"], function($, Ajax, Notificat
         Ajax.call([{
             methodname: "mod_status_get_dashboard",
             args: {cmid: cmid}
-        }])[0].then(function(result) {
+        }])[0].then(function (result) {
             $("[data-region='status-dashboard']").html(result.html);
-        }).catch(function(error) {
+        }).catch(function (error) {
             Notification.exception(error);
-        }).always(function() {
+        }).always(function () {
             loading = false;
         });
     };
 
     return {
-        init: function(cmid, interval) {
-            window.setInterval(function() {
+        init: function (cmid, interval) {
+            window.setInterval(function () {
                 refresh(cmid);
             }, interval || 5000);
         }

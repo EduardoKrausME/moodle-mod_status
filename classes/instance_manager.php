@@ -24,6 +24,9 @@
 
 namespace mod_status;
 
+use completion_info;
+use stdClass;
+
 /**
  * Class instance_manager.
  */
@@ -31,10 +34,10 @@ class instance_manager {
     /**
      * Method add.
      *
-     * @param \stdClass $data Parameter data.
+     * @param stdClass $data Parameter data.
      * @return int Return value.
      */
-    public static function add(\stdClass $data): int {
+    public static function add(stdClass $data): int {
         global $DB;
 
         $labels = status_manager::parse_labels((string)$data->statuslabels);
@@ -48,10 +51,10 @@ class instance_manager {
     /**
      * Method update.
      *
-     * @param \stdClass $data Parameter data.
+     * @param stdClass $data Parameter data.
      * @return bool Return value.
      */
-    public static function update(\stdClass $data): bool {
+    public static function update(stdClass $data): bool {
         global $DB;
 
         $data->id = $data->instance;
@@ -77,7 +80,7 @@ class instance_manager {
         $cm = get_coursemodule_from_instance("status", $data->id, $data->course ?? 0, false, IGNORE_MISSING);
         if ($cm) {
             $course = get_course($cm->course);
-            $completion = new \completion_info($course);
+            $completion = new completion_info($course);
             if ($completion->is_enabled($cm)) {
                 $completion->reset_all_state($cm);
             }

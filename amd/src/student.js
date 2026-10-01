@@ -21,18 +21,18 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(["jquery", "core/ajax", "core/notification"], function($, Ajax, Notification) {
+define(["jquery", "core/ajax", "core/notification"], function ($, Ajax, Notification) {
     return {
-        init: function(cmid) {
+        init: function (cmid) {
             var root = $("[data-region='status-student']");
-            root.on("click", "[data-action='set-status']", function() {
+            root.on("click", "[data-action='set-status']", function () {
                 var button = $(this);
                 var statekey = button.data("statekey");
                 root.find("[data-action='set-status']").prop("disabled", true);
                 Ajax.call([{
                     methodname: "mod_status_set_status",
                     args: {cmid: cmid, statekey: statekey}
-                }])[0].then(function(result) {
+                }])[0].then(function (result) {
                     root.find("[data-action='set-status']")
                         .removeClass("btn-primary active")
                         .addClass("btn-outline-secondary")
@@ -46,7 +46,7 @@ define(["jquery", "core/ajax", "core/notification"], function($, Ajax, Notificat
                         $("<strong>").attr("data-region", "current-label").text(result.label)
                     ));
                     root.find("[data-region='feedback']").text(M.util.get_string("statussaved", "mod_status"));
-                }).catch(Notification.exception).always(function() {
+                }).catch(Notification.exception).always(function () {
                     root.find("[data-action='set-status']").prop("disabled", false);
                 });
             });

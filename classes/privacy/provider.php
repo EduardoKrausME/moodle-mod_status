@@ -24,11 +24,13 @@
 
 namespace mod_status\privacy;
 
+use context;
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\contextlist;
 use core_privacy\local\request\transform;
 use core_privacy\local\request\writer;
+use mod_status\status_manager;
 
 /**
  * Class provider.
@@ -92,7 +94,7 @@ class provider implements
             if (!$activity || !$response) {
                 continue;
             }
-            $states = \mod_status\status_manager::decode_states($activity->states);
+            $states = status_manager::decode_states($activity->states);
             $label = $response->statekey;
             foreach ($states as $state) {
                 if ($state["key"] === $response->statekey) {
@@ -111,10 +113,10 @@ class provider implements
     /**
      * Method delete_data_for_all_users_in_context.
      *
-     * @param \context $context Parameter context.
+     * @param context $context Parameter context.
      * @return void Return value.
      */
-    public static function delete_data_for_all_users_in_context(\context $context): void {
+    public static function delete_data_for_all_users_in_context(context $context): void {
         global $DB;
         if ($context->contextlevel !== CONTEXT_MODULE) {
             return;

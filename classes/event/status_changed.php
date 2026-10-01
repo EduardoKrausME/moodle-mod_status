@@ -24,10 +24,13 @@
 
 namespace mod_status\event;
 
+use core\event\base;
+use moodle_url;
+
 /**
  * Class status_changed.
  */
-class status_changed extends \core\event\base {
+class status_changed extends base {
     /**
      * Method init.
      *
@@ -60,10 +63,10 @@ class status_changed extends \core\event\base {
     /**
      * Method get_url.
      *
-     * @return \moodle_url Return value.
+     * @return moodle_url Return value.
      */
-    public function get_url(): \moodle_url {
-        return new \moodle_url("/mod/status/view.php", ["id" => $this->contextinstanceid]);
+    public function get_url(): moodle_url {
+        return new moodle_url("/mod/status/view.php", ["id" => $this->contextinstanceid]);
     }
 
     /**

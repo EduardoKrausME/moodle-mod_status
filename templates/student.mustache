@@ -25,7 +25,8 @@
 <div class="mod-status-student" data-region="status-student">
     <div class="mod-status-current" data-region="current-status">
         {{#hascurrent}}
-            <span class="mod-status-current-label">{{#str}}yourcurrentstatus, mod_status{{/str}} <strong data-region="current-label">{{currentlabel}}</strong></span>
+            <span class="mod-status-current-label">{{#str}}yourcurrentstatus, mod_status{{/str}} <strong
+                    data-region="current-label">{{currentlabel}}</strong></span>
         {{/hascurrent}}
         {{^hascurrent}}
             <span class="mod-status-current-label text-muted">{{#str}}nostatusyet, mod_status{{/str}}</span>
@@ -33,8 +34,10 @@
     </div>
     <div class="mod-status-buttons" role="group" aria-label="{{#str}}selectstatus, mod_status{{/str}}">
         {{#states}}
-            <button type="button" class="btn mod-status-button {{#active}}btn-primary active{{/active}}{{^active}}btn-outline-secondary{{/active}}"
-                    data-action="set-status" data-statekey="{{key}}" aria-pressed="{{#active}}true{{/active}}{{^active}}false{{/active}}">
+            <button type="button"
+                    class="btn mod-status-button {{#active}}btn-primary active{{/active}}{{^active}}btn-outline-secondary{{/active}}"
+                    data-action="set-status" data-statekey="{{key}}"
+                    aria-pressed="{{#active}}true{{/active}}{{^active}}false{{/active}}">
                 <span class="mod-status-dot" aria-hidden="true"></span>
                 <span>{{label}}</span>
             </button>

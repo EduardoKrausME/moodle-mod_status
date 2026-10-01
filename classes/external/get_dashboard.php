@@ -24,10 +24,12 @@
 
 namespace mod_status\external;
 
+use context_module;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_single_structure;
 use core_external\external_value;
+use mod_status\status_manager;
 
 /**
  * Class get_dashboard.
@@ -56,13 +58,13 @@ class get_dashboard extends external_api {
         $params = self::validate_parameters(self::execute_parameters(), ["cmid" => $cmid]);
         $cm = get_coursemodule_from_id("status", $params["cmid"], 0, false, MUST_EXIST);
         $course = get_course($cm->course);
-        $context = \context_module::instance($cm->id);
+        $context = context_module::instance($cm->id);
         self::validate_context($context);
         require_login($course, false, $cm);
         require_capability("mod/status:viewdashboard", $context);
 
         $activity = $DB->get_record("status", ["id" => $cm->instance], "*", MUST_EXIST);
-        $manager = new \mod_status\status_manager($activity, $cm, $context);
+        $manager = new status_manager($activity, $cm, $context);
         $html = $OUTPUT->render_from_template("mod_status/dashboard", $manager->get_dashboard_template_data());
 
         return ["html" => $html];

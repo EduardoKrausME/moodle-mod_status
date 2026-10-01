@@ -22,9 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 global $CFG;
+defined('MOODLE_INTERNAL') || die;
+
 require_once("{$CFG->dirroot}/mod/status/backup/moodle2/backup_status_stepslib.php");
 
 /**
