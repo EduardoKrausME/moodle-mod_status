@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 $functions = [
     "mod_status_set_status" => [
         "classname" => "mod_status\\external\\set_status",
+        "methodname" => "execute",
         "description" => "Sets the current status for the logged-in user.",
         "type" => "write",
         "ajax" => true,
@@ -34,6 +35,7 @@ $functions = [
     ],
     "mod_status_get_dashboard" => [
         "classname" => "mod_status\\external\\get_dashboard",
+        "methodname" => "execute",
         "description" => "Returns the live teacher dashboard.",
         "type" => "read",
         "ajax" => true,
