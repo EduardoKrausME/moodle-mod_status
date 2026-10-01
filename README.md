@@ -1,20 +1,21 @@
 # mod_status - Meu status
 
-Atividade Moodle simples para aulas práticas. O professor define os estados disponíveis e cada estudante mantém um único
-estado atual, por exemplo:
+Atividade Moodle simples para aulas práticas em que cada estudante informa ao professor seu estado atual.
 
-- Ainda não comecei
-- Trabalhando
-- Preciso de ajuda
-- Terminei
+## Como funciona
 
-O professor recebe um painel ao vivo com os estudantes agrupados por estado e uma coluna adicional para quem ainda não
-marcou nada. O painel é atualizado automaticamente a cada cinco segundos.
+O professor define os estados disponíveis, por exemplo:
 
-## Requisitos
+- Ainda não comecei;
+- Trabalhando;
+- Preciso de ajuda;
+- Terminei.
 
-Moodle 4.5 ou superior.
+Cada estudante mantém um único estado atual. Quando muda de opção, o estado anterior é substituído, deixando o painel
+focado na situação presente da turma.
 
-## Instalação
+## Painel do professor
 
-Copie a pasta `status` para `mod/status` e conclua a atualização pelo administrador do Moodle.
+O professor vê os estudantes agrupados por estado e uma coluna adicional para quem ainda não marcou nada. O painel é
+atualizado automaticamente a cada cinco segundos, permitindo acompanhar rapidamente quem avançou, quem está parado e
+quem está pedindo ajuda.
