@@ -29,5 +29,25 @@
  * @return bool
  */
 function xmldb_status_upgrade($oldversion) {
+    global $DB;
+
+    if ($oldversion < 2026100501) {
+        $functions = [
+            "mod_status_set_status",
+            "mod_status_get_dashboard",
+        ];
+
+        foreach ($functions as $functionname) {
+            $DB->set_field(
+                "external_functions",
+                "methodname",
+                "execute",
+                ["name" => $functionname, "component" => "mod_status"]
+            );
+        }
+
+        upgrade_mod_savepoint(true, 2026100501, "status");
+    }
+
     return true;
 }
