@@ -101,6 +101,7 @@ class provider implements
         ];
         $userlist->add_from_sql("userid", $sql, $params);
     }
+
     /**
      * Method export_user_data.
      *
@@ -185,6 +186,7 @@ class provider implements
             $params
         );
     }
+
     /**
      * Method delete_data_for_user.
      *
