@@ -40,8 +40,10 @@ class backup_status_activity_structure_step extends backup_activity_structure_st
         $responses->add_child($response);
 
         $status->set_source_table("status", ["id" => backup::VAR_ACTIVITYID]);
-        $response->set_source_table("status_user", ["statusid" => backup::VAR_PARENTID]);
-        $response->annotate_ids("user", "userid");
+        if ($this->get_setting_value("userinfo")) {
+            $response->set_source_table("status_user", ["statusid" => backup::VAR_PARENTID]);
+            $response->annotate_ids("user", "userid");
+        }
         $status->annotate_files("mod_status", "intro", null);
 
         return $this->prepare_activity_structure($status);

@@ -27,8 +27,10 @@ namespace mod_status\privacy;
 use context;
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\approved_contextlist;
+use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\contextlist;
 use core_privacy\local\request\transform;
+use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 use mod_status\status_manager;
 
@@ -37,7 +39,8 @@ use mod_status\status_manager;
  */
 class provider implements
     \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\plugin\provider {
+    \core_privacy\local\request\plugin\provider,
+    \core_privacy\local\request\core_userlist_provider {
 
     /**
      * Method get_metadata.
@@ -75,6 +78,29 @@ class provider implements
         return $contextlist;
     }
 
+    /**
+     * Get the users who have data in the supplied context.
+     *
+     * @param userlist $userlist The user list for the context.
+     * @return void
+     */
+    public static function get_users_in_context(userlist $userlist): void {
+        $context = $userlist->get_context();
+        if (!is_a($context, \context_module::class)) {
+            return;
+        }
+
+        $sql = "SELECT su.userid
+                  FROM {course_modules} cm
+                  JOIN {modules} m ON m.id = cm.module AND m.name = :modulename
+                  JOIN {status_user} su ON su.statusid = cm.instance
+                 WHERE cm.id = :instanceid";
+        $params = [
+            "instanceid" => $context->instanceid,
+            "modulename" => "status",
+        ];
+        $userlist->add_from_sql("userid", $sql, $params);
+    }
     /**
      * Method export_user_data.
      *
@@ -127,6 +153,38 @@ class provider implements
         }
     }
 
+    /**
+     * Delete data for a list of users in a single context.
+     *
+     * @param approved_userlist $userlist The approved user list.
+     * @return void
+     */
+    public static function delete_data_for_users(approved_userlist $userlist): void {
+        global $DB;
+
+        $context = $userlist->get_context();
+        if (!is_a($context, \context_module::class)) {
+            return;
+        }
+
+        $cm = get_coursemodule_from_id("status", $context->instanceid);
+        if (!$cm) {
+            return;
+        }
+
+        $userids = $userlist->get_userids();
+        if (!$userids) {
+            return;
+        }
+
+        [$userinsql, $userparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+        $params = array_merge(["statusid" => $cm->instance], $userparams);
+        $DB->delete_records_select(
+            "status_user",
+            "statusid = :statusid AND userid {$userinsql}",
+            $params
+        );
+    }
     /**
      * Method delete_data_for_user.
      *
