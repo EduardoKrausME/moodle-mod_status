@@ -17,6 +17,7 @@
  * Dashboard module.
  *
  * @module    mod_status/dashboard
+ * @package   mod_status
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
