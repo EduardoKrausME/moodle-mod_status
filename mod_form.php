@@ -90,7 +90,7 @@ class mod_status_mod_form extends moodleform_mod {
         } else if (count($labels) > 12) {
             $errors["statuslabels"] = get_string("errormaxstates", "mod_status");
         }
-        if (count($labels) !== count(array_unique(array_map(static fn($label) => core_text::strtolower($label), $labels)))) {
+        if (count($labels) !== count(array_unique(array_map(static fn($label) => strtolower($label), $labels)))) {
             $errors["statuslabels"] = get_string("errorduplicatestates", "mod_status");
         }
         return $errors;

@@ -26,7 +26,6 @@ namespace mod_status;
 
 use completion_info;
 use context_module;
-use core_text;
 use moodle_exception;
 use stdClass;
 
@@ -78,7 +77,7 @@ class status_manager {
         foreach ($lines as $line) {
             $label = trim(clean_param($line, PARAM_TEXT));
             if ($label !== "") {
-                $labels[] = core_text::substr($label, 0, 100);
+                $labels[] = substr($label, 0, 100);
             }
         }
         return $labels;
@@ -95,13 +94,13 @@ class status_manager {
         $existingbylabel = [];
         foreach ($existing as $state) {
             if (isset($state["label"], $state["key"])) {
-                $existingbylabel[core_text::strtolower(trim($state["label"]))] = $state["key"];
+                $existingbylabel[strtolower(trim($state["label"]))] = $state["key"];
             }
         }
 
         $states = [];
         foreach ($labels as $position => $label) {
-            $normalized = core_text::strtolower(trim($label));
+            $normalized = strtolower(trim($label));
             $key = $existingbylabel[$normalized] ?? self::new_key($label, $position);
             $states[] = ["key" => $key, "label" => $label];
         }
@@ -304,8 +303,8 @@ class status_manager {
         if (!$parts) {
             return "?";
         }
-        $first = core_text::substr($parts[0], 0, 1);
-        $last = count($parts) > 1 ? core_text::substr($parts[count($parts) - 1], 0, 1) : "";
-        return core_text::strtoupper($first . $last);
+        $first = substr($parts[0], 0, 1);
+        $last = count($parts) > 1 ? substr($parts[count($parts) - 1], 0, 1) : "";
+        return strtoupper($first . $last);
     }
 }
